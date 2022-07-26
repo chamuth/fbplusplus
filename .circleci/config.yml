@@ -33,11 +33,54 @@ jobs:
       - run:
           command: npm run lint
           name: "Lint code"
+  
+  build:
+    description: "Build app"
+    docker:
+      - image: cimg/node:16.13.0
+    steps: 
+      - checkout
+      - attach_workspace:
+          at: ~/project
+      - run:
+          command: npm run build
+          name: "Build in production mode"
+      - run:
+          command: npm run pack
+          name: "Package app as a zip"
+      - persist_to_workspace:
+          root: ~/artifacts
+          paths:
+            - ./build.zip
+  
+  publish-github-release:
+    description: "Publish the app to GitHub releases"
+    docker: 
+      - image: cibuilds/github:0.10
+    steps:
+      - attach_workspace:
+          at: ~/artifacts
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            go get github.com/tcnksm/ghr
+            VERSION=$(my-binary --version)
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./artifacts/
 
 workflows:
-  lint-workflow:
+  integration:
     jobs:
       - install
       - lint:
           requires:
             - install
+      - build:
+          requires:
+            - lint
+      - hold:
+          type: approval
+          requires: 
+            - build
+      - publish-github-release:
+          requires:
+            - hold
