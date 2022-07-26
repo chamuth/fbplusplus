@@ -48,8 +48,6 @@ jobs:
       - run:
           command: npm run pack
           name: "Package app as a zip"
-      - run:
-          command: mv build.zip ./build/build.zip
       - persist_to_workspace:
           root: ./artifacts
           paths:
