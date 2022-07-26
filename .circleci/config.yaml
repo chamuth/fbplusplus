@@ -1,0 +1,43 @@
+version: 2.1
+
+jobs:
+  install:
+    description: "Clone and setup project"
+    docker:
+      - image: cimg/node:16.13.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "package.json" }}
+            - dependencies-
+      - run:
+          name: "Install dependencies (packages.json)"
+          command: "npm i"
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependencies-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
+  lint:
+    description: "Lint code"
+    docker:
+      - image: cimg/node:16.13.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
+      - run:
+          command: npm run lint
+          name: "Lint code"
+
+workflows:
+  lint-workflow:
+    jobs:
+      - install
+      - lint:
+          requires:
+            - install

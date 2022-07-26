@@ -1,14 +1,14 @@
 import { Faction } from "./consts"
 
 export function appendLabel(elem: Element, text: string, type: Faction) {
-  var div = document.createElement("span")
+  const div = document.createElement("span")
   div.className = `plusplus-label ${factionToClass(type)}`
 
-  var img = document.createElement("img")
+  const img = document.createElement("img")
   img.src = chrome.runtime.getURL("images/pohottu.svg")
-  img.className = `plusplus-logo`
+  img.className = "plusplus-logo"
 
-  var span = document.createElement("span")
+  const span = document.createElement("span")
   span.className = "lblpp"
   span.textContent = text
 

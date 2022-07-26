@@ -4,7 +4,7 @@ import { appendLabel, filterUniqueElements } from "./core"
 
 window.addEventListener("load", () => {
   ;(() => {
-    let comments: Element[] = []
+    const comments: Element[] = []
 
     setInterval(() => {
       // read all commenters

@@ -7,13 +7,19 @@
     "webpack": "webpack",
     "webpack:prod": "webpack --mode production",
     "webpack:watch": "webpack --watch --mode development",
+
     "scss:watch": "node-sass \"./src/styles.scss\" \"./dist/styles.css\" --watch",
     "scss:build": "node-sass \"./src/styles.scss\" \"./dist/styles.css\"",
+
     "src:copy": "cpx \"./manifest.json\" \"./dist/\" && cpx \"./src/images/**.*\" \"./dist/images\"",
+
     "dev": "npm run src:copy && concurrently npm:webpack:watch npm:scss:watch",
     "start": "npm run dev",
+
     "build": "npm run webpack:prod && npm run scss:build && npm run src:copy",
-    "pack": "bestzip build.zip dist/"
+    "pack": "bestzip build.zip dist/",
+
+    "lint": "eslint src"
   },
   "keywords": [],
   "author": "Chamuth Chamandana",
@@ -21,10 +27,15 @@
   "devDependencies": {
     "@types/chrome": "^0.0.193",
     "@types/node": "^18.6.1",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
     "bestzip": "^2.2.1",
     "concurrently": "^7.3.0",
     "cpx": "^1.5.0",
     "dotenv-webpack": "^8.0.0",
+    "eslint": "^8.20.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "node-sass": "^7.0.1",
     "ts-loader": "^9.3.1",
     "typescript": "^4.7.4",
