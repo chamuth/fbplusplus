@@ -48,10 +48,12 @@ jobs:
       - run:
           command: npm run pack
           name: "Package app as a zip"
+      - run:
+          command: mv build.zip ./build/build.zip
       - persist_to_workspace:
-          root: ~/artifacts
+          root: ./artifacts
           paths:
-            - ./build.zip
+            - build.zip
   
   publish-github-release:
     description: "Publish the app to GitHub releases"
@@ -59,7 +61,7 @@ jobs:
       - image: cibuilds/github:0.10
     steps:
       - attach_workspace:
-          at: ~/artifacts
+          at: ./artifacts
       - run:
           name: "Publish Release on GitHub"
           command: |
@@ -77,10 +79,10 @@ workflows:
       - build:
           requires:
             - lint
-      - hold:
+      - hold-for-approval:
           type: approval
           requires: 
             - build
       - publish-github-release:
           requires:
-            - hold
+            - hold-for-approval
