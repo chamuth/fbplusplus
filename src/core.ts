@@ -36,6 +36,19 @@ export function filterUniqueElements(already: Element[], newFound: Element[]) {
   })
 }
 
+export function stringToFaction(faction: string): Faction {
+  switch (faction) {
+    case "pohottu":
+      return Faction.Pohottu
+    case "unp":
+      return Faction.UNP
+    case "paidFakeAccount":
+      return Faction.PaidFakeAccount
+  }
+
+  return Faction.PaidFakeAccount
+}
+
 export function factionToClass(faction: Faction): string {
   switch (faction) {
     case Faction.Pohottu:
@@ -45,4 +58,23 @@ export function factionToClass(faction: Faction): string {
     case Faction.PaidFakeAccount:
       return "fbpp-paid"
   }
+}
+
+export function factionToTitle(faction: Faction): string {
+  switch (faction) {
+    case Faction.Pohottu:
+      return "බයියෙක්"
+    case Faction.UNP:
+      return "ටොයියෙක්"
+    case Faction.PaidFakeAccount:
+      return "Paid Fake Account"
+  }
+}
+
+export function validProfileId(id: string): boolean {
+  if (id.includes("profile.php")) {
+    return false
+  }
+
+  return true
 }

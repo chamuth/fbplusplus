@@ -1,6 +1,13 @@
 import database from "./db"
-import { Faction, Selectors } from "./consts"
-import { appendLabel, filterUniqueElements } from "./core"
+import { Selectors } from "./consts"
+
+import {
+  appendLabel,
+  factionToTitle,
+  filterUniqueElements,
+  stringToFaction,
+  validProfileId,
+} from "./core"
 
 window.addEventListener("load", () => {
   ;(() => {
@@ -19,17 +26,20 @@ window.addEventListener("load", () => {
 
       // DOM operations
       Array.from(newComments).forEach(name => {
-        const profile = name.closest("a")?.href.split("?")[0]
+        const profile_id = name.closest("a")?.href.split("?")[0]
 
-        console.log(profile)
+        if (profile_id && validProfileId(profile_id)) {
+          database.getProfile(profile_id).then(profile => {
+            // check profile status
+            if (profile) {
+              const faction = stringToFaction(profile.faction)
+              appendLabel(name, factionToTitle(faction), faction)
+              return
+            }
 
-        database.setProfile(profile || "unded", {
-          expires: new Date(),
-          faction: "pohottu",
-        })
-
-        // check profile status
-        appendLabel(name, "බයියෙක්", Faction.Pohottu)
+            // User most likely untagged
+          })
+        }
       })
     }, 5000)
   })()

@@ -15,6 +15,7 @@ module.exports = {
   resolve: {
     extensions: [".ts"],
   },
+  devtool: "cheap-source-map",
   output: {
     filename: "content-script.js",
     path: path.resolve(__dirname, "dist"),
