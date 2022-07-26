@@ -48,13 +48,10 @@ jobs:
       - run:
           command: npm run pack
           name: "Package app as a zip"
-      - run:
-          command: mkdir ./artifacts
-          name: "Create artifacts directory"
       - persist_to_workspace:
-          root: ./artifacts
+          root: ~/project
           paths:
-            - build.zip
+            - .
   
   publish-github-release:
     description: "Publish the app to GitHub releases"
@@ -62,7 +59,12 @@ jobs:
       - image: cibuilds/github:0.10
     steps:
       - attach_workspace:
-          at: ./artifacts
+          at: ~/project
+      - run: 
+          command: |
+            mkdir ./artifacts
+            mv build.zip ./artifacts/build.zip
+          name: "Create artifacts directory"
       - run:
           name: "Publish Release on GitHub"
           command: |
