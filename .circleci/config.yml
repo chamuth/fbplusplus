@@ -48,28 +48,8 @@ jobs:
       - run:
           command: npm run pack
           name: "Package app as a zip"
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - .
-  
-  publish-github-release:
-    description: "Publish the app to GitHub releases"
-    docker: 
-      - image: cibuilds/github:0.10
-    steps:
-      - attach_workspace:
-          at: ~/project
-      - run: 
-          command: |
-            mkdir ./artifacts
-            mv build.zip ./artifacts/build.zip
-          name: "Create artifacts directory"
-      - run:
-          name: "Publish Release on GitHub"
-          command: |
-            VERSION=$(my-binary --version)
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./artifacts/
+      - store_artifacts:
+          path: build.zip
 
 workflows:
   integration:
@@ -81,10 +61,3 @@ workflows:
       - build:
           requires:
             - lint
-      - hold-for-approval:
-          type: approval
-          requires: 
-            - build
-      - publish-github-release:
-          requires:
-            - hold-for-approval
