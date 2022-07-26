@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "CommonJS",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,           
+    "strict": true,
+    "skipLibCheck": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "types": ["chrome", "node"]
+  },
+  "include": ["./src"]
+}

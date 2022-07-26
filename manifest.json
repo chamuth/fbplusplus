@@ -1,0 +1,35 @@
+{
+  "name": "Facebook++",
+  "description": "Detects and labels users based on community feedback",
+  "version": "1.0",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.facebook.com/*",
+        "https://facebook.com/*"
+      ],
+      "js": [
+        "content-script.js"
+      ],
+      "css": [
+        "styles.css"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "images/pohottu.svg",
+        "images/unp.svg"
+      ],
+      "matches": [
+        "https://www.facebook.com/*"
+      ]
+    }
+  ],
+  "manifest_version": 3
+}

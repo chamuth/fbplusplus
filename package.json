@@ -1,0 +1,33 @@
+{
+  "name": "facebookpp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "webpack": "webpack",
+    "webpack:watch": "webpack --watch",
+    "scss:watch": "node-sass \"./src/styles.scss\" \"./dist/styles.css\" --watch",
+    "scss:build": "node-sass \"./src/styles.scss\" \"./dist/styles.css\"",
+    "src:copy": "cpx \"./manifest.json\" \"./dist/\" && cpx \"./src/images/**.*\" \"./dist/images\"",
+    "dev": "npm run build && concurrently npm:webpack:watch npm:scss:watch",
+    "start": "npm run dev",
+    "build": "webpack && npm run scss:build && npm run src:copy",
+    "pack": "bestzip build.zip dist/"
+  },
+  "keywords": [],
+  "author": "Chamuth Chamandana",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chrome": "^0.0.193",
+    "@types/node": "^18.6.1",
+    "bestzip": "^2.2.1",
+    "concurrently": "^7.3.0",
+    "cpx": "^1.5.0",
+    "dotenv-webpack": "^8.0.0",
+    "node-sass": "^7.0.1",
+    "ts-loader": "^9.3.1",
+    "typescript": "^4.7.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
+}

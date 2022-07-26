@@ -1,0 +1,42 @@
+$pohottu: #85222b;
+$unp: #4e9024;
+
+@mixin pohottu {
+  background-color: $pohottu;
+  color: white;
+}
+
+@mixin unp {
+  background-color: $unp;
+  color: white;
+}
+
+@mixin paid {
+  background-color: #444;
+  color: white;
+}
+
+.plusplus-label {
+  display: inline-block;
+  padding: 0 5px 0px 2px;
+  border-radius: 5px;
+  margin: 0 0 0 5px;
+}
+
+.plusplus-logo {
+  width: 10px;
+  height: 10px;
+  margin-right: 3px;
+}
+
+.fbpp-pohottu {
+  @include pohottu;
+}
+
+.fbpp-unp {
+  @include unp;
+}
+
+.fbpp-paid {
+  @include paid;
+}
