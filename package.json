@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "webpack": "webpack",
-    "webpack:watch": "webpack --watch",
+    "webpack:prod": "webpack --mode production",
+    "webpack:watch": "webpack --watch --mode development",
     "scss:watch": "node-sass \"./src/styles.scss\" \"./dist/styles.css\" --watch",
     "scss:build": "node-sass \"./src/styles.scss\" \"./dist/styles.css\"",
     "src:copy": "cpx \"./manifest.json\" \"./dist/\" && cpx \"./src/images/**.*\" \"./dist/images\"",
-    "dev": "npm run build && concurrently npm:webpack:watch npm:scss:watch",
+    "dev": "npm run src:copy && concurrently npm:webpack:watch npm:scss:watch",
     "start": "npm run dev",
-    "build": "webpack && npm run scss:build && npm run src:copy",
+    "build": "npm run webpack:prod && npm run scss:build && npm run src:copy",
     "pack": "bestzip build.zip dist/"
   },
   "keywords": [],

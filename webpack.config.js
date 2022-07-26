@@ -12,7 +12,6 @@ module.exports = {
     ],
   },
   plugins: [new Dotenv()],
-  mode: "production",
   resolve: {
     extensions: [".ts"],
   },
