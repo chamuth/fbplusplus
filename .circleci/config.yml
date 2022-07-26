@@ -48,6 +48,9 @@ jobs:
       - run:
           command: npm run pack
           name: "Package app as a zip"
+      - run:
+          command: mkdir ./artifacts
+          name: "Create artifacts directory"
       - persist_to_workspace:
           root: ./artifacts
           paths:
