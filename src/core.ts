@@ -78,31 +78,3 @@ export function validProfileId(id: string): boolean {
 
   return true
 }
-
-function getParameterByName(name: string, url: string) {
-  // eslint-disable-next-line no-useless-escape
-  name = name.replace(/[\[\]]/g, "\\$&")
-  const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-    results = regex.exec(url)
-  if (!results) return null
-  if (!results[2]) return ""
-  return decodeURIComponent(results[2].replace(/\+/g, " "))
-}
-
-// TODO DETECT ALL STRATEGIES
-export function sanitizeID(href: string): string {
-  if (href.includes("profile.php")) {
-    console.log(" FOUND ID HREF:", href)
-    const urlSearchParams = new URLSearchParams(href)
-    return urlSearchParams.get("id") as string
-  }
-
-  const id = href.split("?")[0]
-  const slashes = id.split("/")
-
-  if (id.endsWith("/")) {
-    return slashes[slashes.length - 2]
-  }
-
-  return slashes[slashes.length - 1]
-}
