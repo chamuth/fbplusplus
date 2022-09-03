@@ -5,6 +5,7 @@ import {
   appendLabel,
   factionToTitle,
   filterUniqueElements,
+  sanitizeID as sanitizeId,
   stringToFaction,
   validProfileId,
 } from "./core"
@@ -26,7 +27,8 @@ window.addEventListener("load", () => {
 
       // DOM operations
       Array.from(newComments).forEach(name => {
-        const profile_id = name.closest("a")?.href.split("?")[0]
+        const profile_id = sanitizeId(name.closest("a")?.href || "")
+        console.log("Profile ID: ", profile_id)
 
         if (profile_id && validProfileId(profile_id)) {
           database.getProfile(profile_id).then(profile => {

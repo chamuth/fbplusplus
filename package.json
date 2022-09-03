@@ -7,18 +7,13 @@
     "webpack": "webpack",
     "webpack:prod": "webpack --mode production",
     "webpack:watch": "webpack --watch --mode development",
-
     "scss:watch": "node-sass \"./src/styles.scss\" \"./dist/styles.css\" --watch",
     "scss:build": "node-sass \"./src/styles.scss\" \"./dist/styles.css\"",
-
     "src:copy": "cpx \"./manifest.json\" \"./dist/\" && cpx \"./src/images/**.*\" \"./dist/images\"",
-
     "dev": "npm run src:copy && concurrently npm:webpack:watch npm:scss:watch",
     "start": "npm run dev",
-
     "build": "npm run webpack:prod && npm run scss:build && npm run src:copy",
     "pack": "cd dist/ && bestzip ../build.zip *",
-
     "lint": "eslint src"
   },
   "keywords": [],

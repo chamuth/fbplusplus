@@ -33,12 +33,12 @@ jobs:
       - run:
           command: npm run lint
           name: "Lint code"
-  
+
   build:
     description: "Build app"
     docker:
       - image: cimg/node:16.13.0
-    steps: 
+    steps:
       - checkout
       - attach_workspace:
           at: ~/project

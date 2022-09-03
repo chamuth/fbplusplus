@@ -1,5 +1,5 @@
 export const Selectors = {
-  comments: "span.nc684nl6>a .pq6dq46d span:not(.plusplus-label,.lblpp)",
+  comments: "ul>li div[role='article'] span>a>span>span",
 }
 
 export enum Faction {

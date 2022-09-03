@@ -21,17 +21,21 @@ class database {
     }
 
     // load data from API
-    const profile = await loadProfile(id)
+    try {
+      const profile = await loadProfile(id)
 
-    if (profile) {
-      this.setProfile(id, profile)
-      return profile
+      if (profile) {
+        this.setProfile(id, profile)
+        return profile
+      }
+    } catch {
+      //
     }
 
     return null
   }
 
-  static async setProfile(id: string, data: Profile): Promise<void> {
+  private static async setProfile(id: string, data: Profile): Promise<void> {
     await chrome.storage.local.set({
       [id]: data,
     })
